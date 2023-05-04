@@ -14,7 +14,6 @@ function App () {
       setIssues(filteredIssues)
     } else {
       fetch(`https://api.github.com/search/issues?q=${search}+repo:facebook/react`)
-      fetch('https://avatars.githubusercontent.com/u/3624098?v=4')
         .then((res) => res.json())
         .then((results) => {
           const data = results.items
@@ -37,12 +36,22 @@ function App () {
       .catch((err) => console.log(err))
   }, [])
 
+  useEffect(() => {
+    fetch('https://avatars.githubusercontent.com/u/')
+      .then((res) => res.json())
+      .then((results) => {
+        const data = results
+        setIssues(data)
+      })
+      .catch((err) => console.log(err))
+  }, [])
+
   return (
     <div className='App'>
       <SearchBar handleSearch={sendSearch} />
       <div className='grid-cards'>
         {issues.map((issue) => (
-          <IssueList key={issue.id} url={issue.html_url} />
+          <IssueList key={issue.id} url={issue.html_url} avatar={issue.avatar_url} />
         ))}
       </div>
     </div>
