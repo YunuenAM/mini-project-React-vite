@@ -1,59 +1,36 @@
 import { useState, useEffect } from 'react'
 import IssueList from './components/IssueList'
-import SearchBar from './components/SearchBar'
+import axios from 'axios'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
 function App () {
   const [issues, setIssues] = useState([])
+  const [tablaIssues, setTablaIssues] = useState([])
+  const [busqueda, setBusqueda] = useState('')
 
-  const sendSearch = (search) => {
-    if (issues.length > 0) {
-      const filteredIssues = issues.filter((issue) => {
-        return issue.title.includes(search) || issue.body.includes(search) || issue.labels.some((label) => label.name.includes(search))
+  const peticionGet = async () => {
+    await axios.get('https://api.github.com/repos/facebook/react/issues')
+      .then(response => {
+        setIssues(response.data)
+      }).catch(error => {
+        console.log(error)
       })
-      setIssues(filteredIssues)
-    } else {
-      fetch(`https://api.github.com/search/issues?q=${search}+repo:facebook/react`)
-        .then((res) => res.json())
-        .then((results) => {
-          const data = results.items
-          const filteredIssues = data.filter((issue) => {
-            return issue.avatar_url.includes(search) || issue.id.includes(search) || issue.user.login.includes(search) || issue.html_url.includes((search))
-          })
-          setIssues(filteredIssues)
-        })
-        .catch((err) => console.log(err))
-    }
   }
 
   useEffect(() => {
-    fetch('https://api.github.com/repos/facebook/react/issues')
-      .then((res) => res.json())
-      .then((results) => {
-        const data = results
-        setIssues(data)
-      })
-      .catch((err) => console.log(err))
+    peticionGet()
   }, [])
 
   useEffect(() => {
-    fetch('https://avatars.githubusercontent.com/u/')
-      .then((res) => res.json())
-      .then((results) => {
-        const data = results
-        setIssues(data)
-      })
-      .catch((err) => console.log(err))
-  }, [])
+    setTablaIssues(
+      issues.filter(issue => issue.title.toLowerCase().includes(busqueda.toLowerCase()))
+    )
+  }, [issues, busqueda])
 
   return (
     <div className='App'>
-      <SearchBar handleSearch={sendSearch} />
-      <div className='grid-cards'>
-        {issues.map((issue) => (
-          <IssueList key={issue.id} url={issue.html_url} avatar={issue.avatar_url} />
-        ))}
-      </div>
+      <IssueList issues={tablaIssues} busqueda={busqueda} setBusqueda={setBusqueda} />
     </div>
   )
 }
