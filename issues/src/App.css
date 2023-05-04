@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280px;
+  max-width: 80rem;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -20,33 +20,33 @@ body {
 }
 
 img {
-  max-width: 100%;
+  max-width: 80%;
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 62rem) {
   .image-container {
     flex-basis: 31%;
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 37.5rem) {
   .image-container {
     flex-basis: 48%;
   }
 }
 
 .search-bar{
-  margin: 40px;
+  margin: 2.5rem;
 
 }
 
 .search-input{
-  font-size: 24px;
+  font-size: 1.5rem;
   background-color: transparent;
-  border: 2px solid #61dafb;
+  border: 0.125rem solid #61dafb;
   color: #61dafb;
-  padding:  15px 20px;
-  border-radius: 10px 0px 0px 10px;
+  padding:  0.9375rem 1.25rem;
+  border-radius: 0rem 0.625rem 0rem 0.625rem ;
 }
 
 .search-input:focus{
@@ -59,10 +59,10 @@ img {
 
 .search-button{
   background-color: transparent;
-  border: 2px solid #61dafb;
-  font-size: 24px;
-  padding: 15px 20px;
-  border-radius: 0px 10px 10px 0px;
+  border: 0.125rem solid #61dafb;
+  font-size: 1.25rem;
+  padding: 0.9375rem 1.25rem;
+  border-radius: 0rem 0.625rem 0.625rem 0rem;
   color: #61dafb;
 }
 

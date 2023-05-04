@@ -1,11 +1,11 @@
-
-import './App.css'
+import React from 'react'
+import IssueList from './components/IssueList'
 
 function App () {
   return (
-    <>
-      <div>Issues React</div>
-    </>
+    <div className='App'>
+      <IssueList />
+    </div>
   )
 }
 
