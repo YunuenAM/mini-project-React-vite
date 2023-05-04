@@ -14,11 +14,12 @@ function App () {
       setIssues(filteredIssues)
     } else {
       fetch(`https://api.github.com/search/issues?q=${search}+repo:facebook/react`)
+      fetch('https://avatars.githubusercontent.com/u/3624098?v=4')
         .then((res) => res.json())
         .then((results) => {
           const data = results.items
           const filteredIssues = data.filter((issue) => {
-            return issue.id.includes(search) || issue.user.login.includes(search) || issue.html_url.includes((search))
+            return issue.avatar_url.includes(search) || issue.id.includes(search) || issue.user.login.includes(search) || issue.html_url.includes((search))
           })
           setIssues(filteredIssues)
         })

@@ -17,6 +17,7 @@ function IssueList () {
         <thead>
 
           <tr>
+            <th>Avatar</th>
             <th>ID</th>
             <th>Título</th>
             <th>Usuario</th>
@@ -25,6 +26,7 @@ function IssueList () {
         <tbody>
           {issues.map((issue) => (
             <tr key={issue.id}>
+              <td>{issue.avatar_url}</td>
               <td>{issue.id}</td>
               <td><a href={issue.html_url} target='_blank' rel='noopener noreferrer'>{issue.title}</a></td>
               <td>{issue.user.login}</td>
